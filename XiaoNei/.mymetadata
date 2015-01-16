@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="XiaoNei"
+  id="myeclipse.1419860668463"
+  context-root="/XiaoNei"
+  j2ee-spec="6.0"
+  archive="XiaoNei.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
