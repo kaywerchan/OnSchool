@@ -50,6 +50,10 @@ public class UserDaoImpl implements UserDao {
 		return true;
 	}
 
-	
+	@Override
+	public User getUserByUserId(long userId) throws Exception {
+		User user = hibernateTemplate.get(User.class, userId);
+		return user;
+	}
 
 }

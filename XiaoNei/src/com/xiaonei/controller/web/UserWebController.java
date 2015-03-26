@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserWebController {
 	@RequestMapping("/goToRegisterPage")
 	public String goToRegisterPage(){
-		System.out.println("½øÈëgoToRegisterPage");
+		System.out.println("è¿›å…¥goToRegisterPage");
 		return "registerUser";
 	}
 }

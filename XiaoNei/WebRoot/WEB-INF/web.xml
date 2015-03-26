@@ -4,7 +4,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-   
+	
+	
   <servlet-mapping>
   	<servlet-name>default</servlet-name>
   	<url-pattern>*.js</url-pattern>
@@ -18,6 +19,26 @@
   <servlet-mapping>
   	<servlet-name>default</servlet-name>
   	<url-pattern>*.jpg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>default</servlet-name>
+  	<url-pattern>*.png</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>default</servlet-name>
+  	<url-pattern>*.woff</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>default</servlet-name>
+  	<url-pattern>*.ttf</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>default</servlet-name>
+  	<url-pattern>*.map</url-pattern>
   </servlet-mapping>
   
   <servlet>

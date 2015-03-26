@@ -1,6 +1,5 @@
 package com.xiaonei.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,12 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xiaonei.entity.User;
 import com.xiaonei.service.UserService;
+import com.xiaonei.websocket.ChatStatic;
 
 @Controller
 public class UserController {
 	@Resource
 	private UserService userService;
-	@RequestMapping("/login")
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> login(HttpServletRequest request){
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -32,15 +33,16 @@ public class UserController {
 			user = userService.getUser(userName, password);
 			if(user!=null){
 				result.put("status", 1);
-				result.put("msg", "µÇÂ¼³É¹¦£¡");
+				result.put("msg", "ç™»å½•æˆåŠŸ");
 				request.getSession().setAttribute("userName", user.getUserName());
+				request.getSession().setAttribute("userId", user.getUserId());
 			}else{
 				result.put("status", 0);
-				result.put("msg", "ÕËºÅÃÜÂë²»Æ¥Åä");
+				result.put("msg", "è´¦å·å¯†ç ä¸åŒ¹é…");
 			}
 		} catch (Exception e) {
 			result.put("status", -1);
-			result.put("msg", "µÇÂ¼Òì³££¬ÇëÖØĞÂµÇÂ¼£¡");
+			result.put("msg", "ç™»å½•å‡ºé”™");
 			e.printStackTrace();
 		}
 		return result;
@@ -50,12 +52,15 @@ public class UserController {
 	@RequestMapping("logout")
 	public void logout(HttpServletRequest request,HttpServletResponse response,HttpSession session){
 		try {
+			Long userId = null;
+			userId =(Long)session.getAttribute("userId");
 			session.removeAttribute("userName");
+			session.removeAttribute("userId");
+//			ChatStatic.onlineNum--;
+			ChatStatic.conns.remove(userId);
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
-			
 		}
 		
 	}
@@ -75,19 +80,38 @@ public class UserController {
 			if(!isUserExist){
 				userService.createUser(userName, password, email, Long.parseLong(phone),school,major);
 				result.put("status", 1);
-				result.put("msg", "×¢²á³É¹¦£¡");
+				result.put("msg", "æ³¨å†ŒæˆåŠŸ");
 				request.setAttribute("userName", userName);
 			}else{
 				result.put("status", 0);
-				result.put("msg", "ÓÃ»§ÃûÒÑ×¢²á£¡");
+				result.put("msg", "ç”¨æˆ·åå·²å­˜åœ¨ï¼Œè¯·é‡æ–°å¡«å†™ç”¨æˆ·å");
 			}
 			
 		} catch (Exception e) {
 			result.put("status", -1);
-			result.put("msg", "×¢²áÊ§°Ü£¬ÇëÉÔºóÔÙ×¢²á£¡");
+			result.put("msg", "æ³¨å†Œå‡ºé”™");
 			e.printStackTrace();
 		}
 		return result;
 	}
+	
+	
+	@RequestMapping(value = "/getUserByUserId")
+	@ResponseBody
+	public Map<String, Object> getUserByUserId(HttpServletRequest request){
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			long userId = Long.parseLong(request.getParameter("userId"));
+			result = userService.getUserByUserId(userId);
+			result.put("status", 1);
+		} catch (Exception e) {
+			result.put("status", -1);
+			result.put("msg", "è·å–ç”¨æˆ·å‡ºé”™");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
 
 }

@@ -1,6 +1,10 @@
 package com.xiaonei.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.management.RuntimeErrorException;
@@ -52,6 +56,69 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean isUserExist(String userName) throws Exception {
 		return userDao.isUserExist(userName);
+	}
+
+	@Override
+	public Map<String, Object> mapUser(User user) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("userId", user.getUserId());
+		result.put("userName", user.getUserName());
+		result.put("email", user.getEmail());
+		result.put("phone", user.getPhone());
+		result.put("school", user.getSchool());
+		result.put("major", user.getMajor());
+		result.put("authority", user.getAuthority());
+		result.put("cent", user.getCent());
+		result.put("population", user.getPopulation());
+		result.put("registerdate", user.getRegisterDate());
+		return result;
+	}
+
+	@Override
+	public Map<String, Object> simpleMapUser(User user) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("userId", user.getUserId());
+		result.put("userName", user.getUserName());
+		result.put("email", user.getEmail());
+		result.put("phone", user.getPhone());
+		result.put("school", user.getSchool());
+		result.put("major", user.getMajor());
+		result.put("population", user.getPopulation());
+		return result;
+	}
+	
+	
+	@Override
+	public List<Map<String, Object>> mapUsers(List<User> users)
+			throws Exception {
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		for(User user : users){
+			Map<String,  Object> map = new HashMap<String, Object>();
+			map = mapUser(user);
+			result.add(map);
+		}
+		return result;
+	}
+
+
+	@Override
+	public List<Map<String, Object>> simpleMapUsers(List<User> users)
+			throws Exception {
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		for(User user : users){
+			Map<String,  Object> map = new HashMap<String, Object>();
+			map = simpleMapUser(user);
+			result.add(map);
+		}
+		return result;
+	}
+
+	@Override
+	public Map<String, Object> getUserByUserId(long userId) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		User user = userDao.getUserByUserId(userId);
+		result = simpleMapUser(user);
+		return result;
 	}
 
 }

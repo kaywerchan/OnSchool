@@ -28,7 +28,7 @@ public class UserServiceTest {
 	@Test
 	public void test2(){
 		try {
-			System.out.println(userService.getUser("kk", "123456"));
+			System.out.println(userService.getUser("chenronghua", "123"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

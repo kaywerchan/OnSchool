@@ -10,4 +10,7 @@ public interface UserDao {
 	public User getUser(String userName, String password) throws Exception;
 	
 	public boolean isUserExist(String userName)throws Exception;
+	
+	public User getUserByUserId(long userId) throws Exception;
+
 }

@@ -1,5 +1,12 @@
-#Mon Jan 12 23:14:13 CST 2015
+#Wed Mar 25 11:40:02 CST 2015
 eclipse.preferences.version=1
+encoding//WebRoot/WEB-INF/pages/chat.jsp=UTF-8
+encoding//WebRoot/WEB-INF/pages/chatRoom.jsp=UTF-8
+encoding//WebRoot/WEB-INF/pages/myRings.jsp=UTF-8
 encoding//WebRoot/WEB-INF/pages/personalInfo.jsp=UTF-8
 encoding//WebRoot/WEB-INF/pages/registerUser.jsp=UTF-8
+encoding//WebRoot/chatRoom.jsp=UTF-8
+encoding//WebRoot/mainPage.jsp=UTF-8
 encoding//WebRoot/managerLogin.jsp=UTF-8
+encoding//WebRoot/user.jsp=UTF-8
+encoding/<project>=UTF-8

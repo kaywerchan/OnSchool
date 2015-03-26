@@ -1,12 +1,18 @@
 package com.xiaonei.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -15,7 +21,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "userid")
-	private int userId;
+	private long userId;
 	
 	@Column(name = "username", nullable=false)
 	private String userName;
@@ -47,12 +53,25 @@ public class User {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "registerdate", nullable=false)
 	private Date registerDate;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="user_rings",
+		joinColumns=@JoinColumn(name="userid"),
+		inverseJoinColumns=@JoinColumn(name="ringid"))
+	private Set<Ring> rings;
+	
+	@ManyToMany
+	@JoinTable(name="user_friends",
+		joinColumns=@JoinColumn(name="userid"),
+		inverseJoinColumns=@JoinColumn(name="friendid")
+	)
+	private Set<User> friends;
 
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
@@ -88,7 +107,6 @@ public class User {
 		this.phone = phone;
 	}
 
-	
 	public String getSchool() {
 		return school;
 	}
@@ -105,8 +123,6 @@ public class User {
 		this.major = major;
 	}
 
-	
-	
 	public int getAuthority() {
 		return authority;
 	}
@@ -137,6 +153,23 @@ public class User {
 
 	public void setRegisterDate(Date registerDate) {
 		this.registerDate = registerDate;
+	}
+
+
+	public Set<Ring> getRings() {
+		return rings;
+	}
+
+	public void setRings(Set<Ring> rings) {
+		this.rings = rings;
+	}
+
+	public Set<User> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(Set<User> friends) {
+		this.friends = friends;
 	}
 	
 	
